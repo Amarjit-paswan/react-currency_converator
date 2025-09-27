@@ -1,17 +1,20 @@
 import React from "react";
+import { useId } from "react";
 
 function InputBox({
     label, amount, onAmountChange,
-    onCurrencyChange, currencyOption,
+    onCurrencyChange, currencyOption=[],
     selectCurrency="usd", amountDisable=false,
     currencyDisable=false, className=""
     }){
 
+      // Generating unique id for input 
+      const InputAmountId = useId();
      return (
          <div className={`box d-flex gap-2 ${className} `}>
               <div className="input_box d-flex flex-column justify-content-start align-items-start">
-                <label htmlFor="" className="form-label fw-bold">{label}</label>
-                <input type="number" name="" id="" className="form-control" placeholder='Enter Value' 
+                <label htmlFor={InputAmountId} className="form-label fw-bold">{label}</label>
+                <input type="number" name="" id={InputAmountId} className="form-control" placeholder='Enter Value' 
                     disabled={amountDisable} 
                     value={amount} 
                     onChange={(e)=> onAmountChange && onAmountChange(Number(e.target.value))} 
@@ -26,6 +29,7 @@ function InputBox({
                     disabled = {currencyDisable}
                 >
                   {
+                    
                     currencyOption.map((curr)=> (
                          <option key={curr} value={curr}>{curr}</option>
 
@@ -40,3 +44,5 @@ function InputBox({
      )   
 
 }
+
+export default InputBox;
